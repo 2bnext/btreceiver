@@ -52,7 +52,7 @@ if(NOT pico_extras_POPULATED)
 endif()
 set(PICO_EXTRAS_PATH ${pico_extras_SOURCE_DIR})
 
-project(btspkr C CXX ASM)
+project(btreceiver C CXX ASM)
 
 # Adds pico-extras' post_init.cmake to PICO_SDK_POST_LIST_FILES so its
 # libraries (pico_audio_i2s etc.) get registered during pico_sdk_init().
@@ -64,11 +64,11 @@ pico_sdk_init()
 # I2S pin assignment for PCM5102 DAC module.
 # DATA_PIN    = DIN  (GPIO26)
 # CLOCK_BASE  = BCK  (GPIO27); LRCK = BCK + 1 = GPIO28
-set(BTSPKR_I2S_DATA_PIN       26)
-set(BTSPKR_I2S_CLOCK_PIN_BASE 27)
+set(btreceiver_I2S_DATA_PIN       26)
+set(btreceiver_I2S_CLOCK_PIN_BASE 27)
 
-add_executable(btspkr
-    btspkr.cpp
+add_executable(btreceiver
+    btreceiver.cpp
     audio.cpp
     bt.cpp
     dsp.cpp
@@ -78,26 +78,26 @@ add_executable(btspkr
     ${PICO_BTSTACK_PATH}/src/btstack_audio.c
 )
 
-pico_set_program_name(btspkr "btspkr")
-pico_set_program_version(btspkr "0.1")
+pico_set_program_name(btreceiver "btreceiver")
+pico_set_program_version(btreceiver "0.1")
 
 # stdio over UART so prints survive debugger halts (the probe forwards
 # GPIO 0/1 to its own USB-CDC, independent of TinyUSB on the target).
-pico_enable_stdio_uart(btspkr 1)
-pico_enable_stdio_usb(btspkr 0)
+pico_enable_stdio_uart(btreceiver 1)
+pico_enable_stdio_usb(btreceiver 0)
 
-target_compile_definitions(btspkr PRIVATE
-    PICO_AUDIO_I2S_DATA_PIN=${BTSPKR_I2S_DATA_PIN}
-    PICO_AUDIO_I2S_CLOCK_PIN_BASE=${BTSPKR_I2S_CLOCK_PIN_BASE}
+target_compile_definitions(btreceiver PRIVATE
+    PICO_AUDIO_I2S_DATA_PIN=${btreceiver_I2S_DATA_PIN}
+    PICO_AUDIO_I2S_CLOCK_PIN_BASE=${btreceiver_I2S_CLOCK_PIN_BASE}
     CYW43_LWIP=0
 )
 
-# Our own btstack_config.h lives next to btspkr.cpp
-target_include_directories(btspkr PRIVATE
+# Our own btstack_config.h lives next to btreceiver.cpp
+target_include_directories(btreceiver PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
 )
 
-target_link_libraries(btspkr
+target_link_libraries(btreceiver
     pico_stdlib
     hardware_i2c
     hardware_pwm
@@ -108,4 +108,4 @@ target_link_libraries(btspkr
     pico_audio_i2s
 )
 
-pico_add_extra_outputs(btspkr)
+pico_add_extra_outputs(btreceiver)
