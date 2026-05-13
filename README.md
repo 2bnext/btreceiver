@@ -1,3 +1,5 @@
+<img width="800" height="600" alt="b3b8c003-c8e0-4a8e-9995-777f12522749" src="https://github.com/user-attachments/assets/34ae444f-40ee-4c03-a1b1-b5d1a443ceac" />
+
 # btreceiver
 
 A Bluetooth A2DP audio receiver on the Raspberry Pi Pico 2 W. Streams
