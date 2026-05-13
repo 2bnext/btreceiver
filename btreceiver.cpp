@@ -1,4 +1,4 @@
-// btspkr -- Bluetooth A2DP audio receiver for the Raspberry Pi Pico 2 W.
+// btreceiver -- Bluetooth A2DP audio receiver for the Raspberry Pi Pico 2 W.
 // Streams audio from a phone/PC over Bluetooth Classic and plays it back
 // through a PCM5102 I2S DAC. Pairs on boot with "just works" SSP.
 //
